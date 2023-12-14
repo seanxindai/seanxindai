@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>贷款申请</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://www.easybui.com/demo/css/bui.css">
+    <script src="https://www.easybui.com/demo/js/zepto.js"></script>
+    <script src="https://www.easybui.com/demo/js/bui.js"></script>
+    <style>
+        #submit {
+            background-color: cornflowerblue;
+        }
+        input[type="checkbox"] {
+            display: none;
+        }
+        .checkboxlabel {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            border: 1px solid dodgerblue;
+            display: inline-block;
+            cursor: pointer;
+            margin-top: -5%;
+            text-align: center;
+            position: relative;
+        }
+        .checkboxlabelinner {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            background-color: white;
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -3.5px;
+            margin-left: -3.5px;
+        }
+        input[type="checkbox"]:checked + label {
+            background-color: dodgerblue;
+        }
+    </style>
+</head>
+<body>
+<div class="bui-page page-form">
+    <!--<header class="bui-bar">
+        <div class="bui-bar-left"> <a class="bui-btn btn-back"><i class="icon-back"></i></a> </div>
+        <div class="bui-bar-main">贷款申请</div>
+        <div class="bui-bar-right"> </div>
+    </header>-->
+    <main>
+        <ul class="bui-list">
+            <li class="bui-btn bui-box clearactive">
+                <div class="section-title">
+                    身份证正面照:
+                </div>
+                <div id="buiPhoto" class="bui-upload bui-fluid-space-4" b-template="page.tplPhoto(page.photos)" b-command="prepend">
+                    <div class="span1">
+                        <input type="file" name="pic" accept="image/*">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div style="border:2px solid #f0f0f0;"></div>
+        <ul class="bui-list">
+            <li class="bui-btn bui-box clearactive">
+                <div class="section-title">
+                    身份证背面照:
+                </div>
+                <div id="buiPhoto2" class="bui-upload bui-fluid-space-4" b-template="page.tplPhoto(page.photos)" b-command="prepend">
+                    <div class="span1">
+                        <input type="file" name="pic" accept="image/*">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div id="submit" class="bui-btn" onclick="submit()">提交</div>
+        <main>
+        <div style="position: fixed;top:50%;left: 50%">
+            <div id="loading" class="bui-panel" ></div>
+        </div>
+</div>
+<script>
+    var uiLoading;
+    bui.ready(function(global){
+        uiLoading = bui.loading({
+            appendTo:"#loading",
+            width: 40,
+            height: 40,
+            callback: function (argument) {
+            }
+        });
+    })
+    function submit() {
+        uiLoading.show();
+        setTimeout(function () {
+            uiLoading.hide();
+            bui.alert("风控评估异常,请前往现场进行办理!");
+        },500);
+    }
+</script>
+</body>
+</html>

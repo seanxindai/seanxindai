@@ -1,11 +1,377 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>贷款申请</title>
+    <meta charset="utf-8">
+    <title>人工审核通道</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://www.easybui.com/demo/css/bui.css">
+    <script src="https://www.easybui.com/demo/js/zepto.js"></script>
+    <script src="https://www.easybui.com/demo/js/bui.js"></script>
+    <style>
+        #submit {
+            background-color: cornflowerblue;
+        }
+        input[type="checkbox"] {
+            display: none;
+        }
+        .checkboxlabel {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            border: 1px solid dodgerblue;
+            display: inline-block;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            margin-top:2px;
+        }
+        .checkboxlabelinner {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            background-color: white;
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -3.5px;
+            margin-left: -3.5px;
+        }
+        input[type="checkbox"]:checked + label {
+            background-color: dodgerblue;
+        }
+        .bui-box .span1 > .bui-btn {
+            border-right: 0;
+        }
+        .bui-box .span1:first-child > .bui-btn {
+            border-left: 0;
+        }
+    </style>
+    <Script>
+        function submit() {
+            console.log("submit")
+            location.href = "confirm.html";
+        }
+    </Script>
 </head>
 <body>
-    <a>Hello World!</a>
-</body>
+<div class="bui-page page-form">
+    <!--<header class="bui-bar">
+        <div class="bui-bar-left"> <a class="bui-btn btn-back"><i class="icon-back"></i></a> </div>
+        <div class="bui-bar-main">贷款申请</div>
+        <div class="bui-bar-right"> </div>
+    </header>-->
+    <main>
+        <ul class="bui-list">
+            <li class="bui-btn bui-box clearactive">
+                <label class="bui-label" for="phonenumber">手机号:</label>
+                <div class="span1">
+                    <div class="bui-input user-input">
+                        <input id="phonenumber" type="number" class="bui-input" value="" placeholder="请输入手机号">
+                    </div>
+                </div>
+            </li>
+            <li class="bui-btn bui-box clearactive">
+                <label class="bui-label" for="username1">证件类型:</label>
+                <div class="span1">
+                    <div class="bui-input user-input">
+                        <input id="certificate" type="text" class="bui-input" disabled value="二代身份证" placeholder="请输入证件类型">
+                    </div>
+                </div>
+            </li>
+            <li class="bui-btn bui-box clearactive">
+                <label class="bui-label" for="username1">证件名称:</label>
+                <div class="span1">
+                    <div class="bui-input user-input">
+                        <input id="username1" type="text" class="bui-input" value="" placeholder="请输入证件名称">
+                    </div>
+                </div>
+            </li>
+            <li class="bui-btn bui-box clearactive">
+                <label class="bui-label" for="password">证件号码:</label>
+                <div class="span1">
+                    <div id="passwordInput" class="bui-input">
+                        <input id="password" type="text" placeholder="请输入证件号码">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div style="border:2px solid #f0f0f0;"></div>
+        <ul class="bui-list">
+            <li class="bui-btn bui-box clearactive">
+                <label class="bui-label">单位地区:</label>
+                <div class="span1">
+                    <div class="bui-box">
+                        <div class="span1">
+                            <div id="provinceSelect" class="bui-btn bui-box">
+                                <div class="span1">省份</div>
+                                <i class="icon-listright"></i>
+                            </div>
+                        </div>
+                        <div class="span1">
+                            <div id="citySelect" class="bui-btn bui-box">
+                                <div class="span1">地市</div>
+                                <i class="icon-listright"></i>
+                            </div>
+                        </div>
+                        <div class="span1">
+                            <div id="areaSelect" class="bui-btn bui-box">
+                                <div class="span1">区域</div>
+                                <i class="icon-listright"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="bui-btn bui-box clearactive">
+                <label class="bui-label" for="companyname">单位名称:</label>
+                <div class="span1">
+                    <div class="bui-input user-input">
+                        <input id="companyname" type="number" class="bui-input" value="" placeholder="请输入单位名称">
+                    </div>
+                </div>
+            </li>
+            <li class="bui-btn bui-box clearactive">
+                <label class="bui-label" for="companyname">单位地址:</label>
+                <div class="span1">
+                    <div class="bui-input user-input">
+                        <input id="companyaddress" type="number" class="bui-input" value="" placeholder="请输入单位地址">
+                    </div>
+                </div>
+            </li>
+            <li class="bui-btn bui-box clearactive">
+                <label class="bui-label" for="address">家庭地址:</label>
+                <div class="span1">
+                    <div class="bui-input user-input">
+                        <input id="address" type="number" class="bui-input" value="" placeholder="请输入家庭地址">
+                    </div>
+                </div>
+            </li>
+            <li class="bui-btn bui-box">
+                <div style="display: flex">
+                    <div>
+                        <input type="checkbox" id="checkbox" />
+                        <label  for="checkbox" class="checkboxlabel"><lable class="checkboxlabelinner"></lable></label>
+                    </div>
+                    <!-- <input style="margin-top: -5%;" id="interest1" type="checkbox"  name="interest" >-->
+                    <div>
+                        <label style="display: inline-block">&nbsp;我已阅读并同意<span style="color: dodgerblue">《综合信息查询授权委托书》</span>,<span style="color: dodgerblue">《征信查询授权书》</span></label>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <!--<div class="span1">
+            <div id="btnOpenDown" class="bui-btn">打开底部对话框</div>
+        </div>-->
+        <div style="position: fixed;bottom: 0; width: 100%;" id="submit" class="bui-btn" onclick="submit()">提交</div>
+        <main>
+        <!--<div id="dialogDown" class="bui-dialog" style="display: none;">
+            <iframe src="select.html" style="width: 100%;border:0px;">
 
+            </iframe>
+            <div class="bui-dialog-close"><i class="icon-close">X</i></div>
+        </div>-->
+</div>
+<script>
+    console.log(loader)
+    bui.ready(function(){
+    var pageview = {};
+
+    pageview.bind = function () {
+
+        // 手机号,帐号是同个样式名, 获取值的时候,取的是最后一个focus的值
+        bui.input({
+            id: ".user-input",
+            callback: function (e) {
+                // 清空数据
+                this.empty();
+            }
+        })
+
+
+        // 密码显示或者隐藏
+        var password = bui.input({
+            id: "#passwordInput",
+            iconClass: ".icon-eye",
+            onBlur: function (e) {
+                // 注册的时候校验只能4-18位密码
+                var rule = /^[a-zA-Z0-9_-]{4,18}$/;
+                if (!rule.test(e.target.value)) {
+                    bui.hint("密码只能由4-18位字母或者数字上下横杠组成");
+                    return false;
+                }
+
+                return true;
+            },
+            callback: function (e) {
+                //切换类型
+                this.toggleType();
+                //
+                $(e.target).toggleClass("active")
+            }
+        })
+
+        // 评论的长度限制
+        var comment = bui.input({
+            id: "#comment",
+            target: "textarea",
+            showIcon: false,
+            maxLength: 100,
+            showLength: true
+        })
+
+
+    }
+
+
+    var uiDialogDown = bui.dialog({
+        id: "#dialogDown",
+        effect: "fadeInUp",
+        position: "bottom",
+        width: "100%",
+        height: 300,
+        fullscreen: false,
+        dragable: true,
+        dragback: true,
+        buttons: []
+    });
+
+    $('#btnOpenDown').on("click", function () {
+        uiDialogDown.open();
+    })
+
+        // 多级联动
+    levelSelect();
+
+    // bui.select 的多级联动
+    function levelSelect() {
+        var uiMask = bui.mask();
+        /* 一, 初始化控件 */
+
+        // 城市的数据
+        var chineseCities = {};
+        var uiLoading = bui.loading();
+
+        // 省份
+        var provinceSelect = bui.select({
+            trigger: "#provinceSelect",
+            title: "请选择省份",
+            type: "radio",
+            height: 300,
+            autoClose: true,
+            field: {
+                value: "name"
+            },
+            data: []
+        });
+
+        // 城市
+        var citySelect = bui.select({
+            trigger: "#citySelect",
+            title: "请选择地市",
+            type: "radio",
+            height: 300,
+            autoClose: true,
+            field: {
+                value: "name"
+            },
+            data: []
+        });
+
+        // 地区
+        var areaSelect = bui.select({
+            trigger: "#areaSelect",
+            title: "请选择区域",
+            type: "radio",
+            height: "100%",
+            autoClose: true,
+            field: {
+                value: "name"
+            },
+            data: []
+        });
+
+        /* 二, 监听控件的事件变化 */
+
+        // 选择省份以后
+        provinceSelect.on("change", function() {
+            var index = provinceSelect.index() || 0;
+
+            provinceSelect.hide();
+
+            // 激活第一个城市
+            chineseCities.city = chineseCities.province[index]["city"];
+            citySelect.option("data", chineseCities.city);
+
+            citySelect.show();
+        })
+
+        // 选择城市以后
+        citySelect.on("change", function() {
+
+            var index = citySelect.index() || 0;
+
+            citySelect.hide();
+
+            //设置选择的区域数据
+            chineseCities.area = chineseCities.city[index]["area"] || [];
+            areaSelect.option("data", chineseCities.area);
+
+
+            areaSelect.show();
+
+        });
+        // 选择地区以后
+        areaSelect.on("change", function() {
+
+            areaSelect.hide();
+
+            var province = provinceSelect.text(),
+                city = citySelect.text(),
+                area = areaSelect.text(),
+                address = "";
+
+            if (province == city) {
+                address = province + area;
+            } else {
+                address = province + city + area;
+            }
+
+            // 输出地址
+            console.log(address);
+
+        })
+
+        /* 三, 填充省份的第一个列表 */
+
+        uiLoading.show();
+
+        // 获取中国省份的数据
+        bui.ajax({ url: "cities.json" }).then(function(datas) {
+            //省份数据
+            chineseCities.province = datas.data;
+            //初始化省份的select
+            provinceSelect.option("data", datas.data);
+
+            // 初始化省的第一个数据,触发change事件,再设置城市初始值
+            // provinceSelect.active(0);
+
+            uiLoading.hide();
+        })
+
+    }
+
+    pageview.init = function () {
+
+        // 绑定事件
+        this.bind();
+    }
+
+
+    pageview.init();
+
+
+})
+</script>
+</body>
 </html>
