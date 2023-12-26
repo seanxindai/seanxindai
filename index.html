@@ -48,8 +48,66 @@
         }
     </style>
     <Script>
+        const phonenumberReg = /^1[3456789]\d{9}$/;
+        const certificateNumberReg = /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}$)/;
+        function verifyStr(str,reg) {
+            return reg.test(str);
+        }
         function submit() {
             console.log("submit")
+            const phonenumber = $('#phonenumber')[0].value
+
+            if(!verifyStr(phonenumber,phonenumberReg)) {
+                alert("请正确填写手机号")
+                return;
+            }
+            const certificateType = $('#certificateType')[0].value
+            const certificateName = $('#certificateName')[0].value
+            if(certificateName == '' || certificateName.length < 2) {
+                alert("请正确填写姓名")
+                return;
+            }
+            const certificateNumber = $('#certificateNumber')[0].value
+            if(!verifyStr(certificateNumber,certificateNumberReg)) {
+                alert("请正确填写身份证号")
+                return;
+            }
+            const provinceSelect = $('#provinceSelect')[0].innerText
+            if(provinceSelect=='省份' || provinceSelect=='') {
+                alert("请选择单位地区")
+                return;
+            }
+            const citySelect = $('#citySelect')[0].innerText
+            if(citySelect=='地市' || citySelect=='') {
+                alert("请选择单位地区")
+                return;
+            }
+            const areaSelect = $('#areaSelect')[0].innerText
+            if(areaSelect=='区域' || areaSelect=='') {
+                alert("请选择单位地区")
+                return;
+            }
+            const companyname = $('#companyname')[0].value
+            console.log(companyname)
+            if(companyname == '') {
+                alert("请填写单位名称")
+                return;
+            }
+            const companyaddress = $('#companyaddress')[0].value
+            if(companyaddress == '') {
+                alert("请填写单位地址")
+                return;
+            }
+            const address = $('#address')[0].value
+            if(address == '') {
+                alert("请填写家庭地址")
+                return;
+            }
+            const agree = $('#agree')[0].checked
+            if(!agree) {
+                alert("请阅读并同意《综合信息查询授权委托书》《征信查询授权书》")
+                return;
+            }
             location.href = "confirm.html";
         }
     </Script>
@@ -62,6 +120,7 @@
         <div class="bui-bar-right"> </div>
     </header>-->
     <main>
+        <div id="mask" style="width: 100%;height: 100%;position: fixed;background: #f0f0f0;z-index: 3;opacity: 0.4;display: none"></div>
         <ul class="bui-list">
             <li class="bui-btn bui-box clearactive">
                 <label class="bui-label" for="phonenumber">手机号:</label>
@@ -72,26 +131,26 @@
                 </div>
             </li>
             <li class="bui-btn bui-box clearactive">
-                <label class="bui-label" for="username1">证件类型:</label>
+                <label class="bui-label" for="certificateType">证件类型:</label>
                 <div class="span1">
                     <div class="bui-input user-input">
-                        <input id="certificate" type="text" class="bui-input" disabled value="二代身份证" placeholder="请输入证件类型">
+                        <input id="certificateType" type="text" class="bui-input" disabled value="二代身份证" placeholder="请输入证件类型">
                     </div>
                 </div>
             </li>
             <li class="bui-btn bui-box clearactive">
-                <label class="bui-label" for="username1">证件名称:</label>
+                <label class="bui-label" for="certificateName">证件名称:</label>
                 <div class="span1">
                     <div class="bui-input user-input">
-                        <input id="username1" type="text" class="bui-input" value="" placeholder="请输入证件名称">
+                        <input id="certificateName" type="text" class="bui-input" value="" placeholder="请输入证件名称">
                     </div>
                 </div>
             </li>
             <li class="bui-btn bui-box clearactive">
-                <label class="bui-label" for="password">证件号码:</label>
+                <label class="bui-label" for="certificateNumber">证件号码:</label>
                 <div class="span1">
                     <div id="passwordInput" class="bui-input">
-                        <input id="password" type="text" placeholder="请输入证件号码">
+                        <input id="certificateNumber" type="text" placeholder="请输入证件号码">
                     </div>
                 </div>
             </li>
@@ -127,7 +186,7 @@
                 <label class="bui-label" for="companyname">单位名称:</label>
                 <div class="span1">
                     <div class="bui-input user-input">
-                        <input id="companyname" type="number" class="bui-input" value="" placeholder="请输入单位名称">
+                        <input id="companyname" type="text" class="bui-input" value="" placeholder="请输入单位名称">
                     </div>
                 </div>
             </li>
@@ -135,7 +194,7 @@
                 <label class="bui-label" for="companyname">单位地址:</label>
                 <div class="span1">
                     <div class="bui-input user-input">
-                        <input id="companyaddress" type="number" class="bui-input" value="" placeholder="请输入单位地址">
+                        <input id="companyaddress" type="text" class="bui-input" value="" placeholder="请输入单位地址">
                     </div>
                 </div>
             </li>
@@ -143,19 +202,19 @@
                 <label class="bui-label" for="address">家庭地址:</label>
                 <div class="span1">
                     <div class="bui-input user-input">
-                        <input id="address" type="number" class="bui-input" value="" placeholder="请输入家庭地址">
+                        <input id="address" type="text" class="bui-input" value="" placeholder="请输入家庭地址">
                     </div>
                 </div>
             </li>
             <li class="bui-btn bui-box">
                 <div style="display: flex">
                     <div>
-                        <input type="checkbox" id="checkbox" />
-                        <label  for="checkbox" class="checkboxlabel"><lable class="checkboxlabelinner"></lable></label>
+                        <input type="checkbox" id="agree" />
+                        <label for="agree" class="checkboxlabel"><lable class="checkboxlabelinner"></lable></label>
                     </div>
                     <!-- <input style="margin-top: -5%;" id="interest1" type="checkbox"  name="interest" >-->
                     <div>
-                        <label style="display: inline-block">&nbsp;我已阅读并同意<span style="color: dodgerblue">《综合信息查询授权委托书》</span>,<span style="color: dodgerblue">《征信查询授权书》</span></label>
+                        <label style="display: inline-block">&nbsp;我已阅读并同意<span id="attorney" style="color: dodgerblue">《综合信息查询授权委托书》</span>,<span id="attorney2" style="color: dodgerblue">《征信查询授权书》</span></label>
                     </div>
                 </div>
             </li>
@@ -163,16 +222,38 @@
         <!--<div class="span1">
             <div id="btnOpenDown" class="bui-btn">打开底部对话框</div>
         </div>-->
-        <div style="position: fixed;bottom: 0; width: 100%;" id="submit" class="bui-btn" onclick="submit()">提交</div>
+        <div style="position: fixed;bottom: 0; width: 100%;z-index: 4;" id="submit" class="bui-btn" onclick="submit()">提交</div>
+        <div id="dialogDown"  style="width: 100%;height: 50%;display: none;position: fixed;bottom:0.9rem;background: white;overflow: hidden;z-index: 4;">
+            <div style="width: 100%;height: 50px;background: white;text-align: center;line-height: 50px;border-top:1px solid #f0f0f0;">详情</div>
+            <p id="attorneyText"  style="padding:20px;height: 400px;overflow-y: scroll;-webkit-overflow-scrolling: touch;overflow-scrolling: touch;">
+            </p>
+        </div>
         <main>
-        <!--<div id="dialogDown" class="bui-dialog" style="display: none;">
-            <iframe src="select.html" style="width: 100%;border:0px;">
-
-            </iframe>
-            <div class="bui-dialog-close"><i class="icon-close">X</i></div>
-        </div>-->
 </div>
 <script>
+    var attorney =
+        "&nbsp;&nbsp;本人授权并同意上海加池网络科技有限公司在开展与本人相关业务过程中,可以向金融信用信息基础数握库和其他经国务院征信业务监管部门批准设立的征信机构和第三方智能风控公司等查询、复制、使用本人的信用信息,并同意上海加池网络科技有限公司向金融信用信息基础数据库和其他经国务院征信业务监管部门批准设立的征信机构和第三方智能风控公司等报送本人的相关信用信息。<br/>" +
+        "<br/>" +
+        "&nbsp;&nbsp;本人同意上海加池网络科技有限公司有权将本人个人信息提供给与本人所涉业务相关的其他第三方并同意和授权上海加池网络科技有限公司推荐的存在借贷交易机会的第三方在开展与本人相关的业务过程中有权查询、收集使用本人个人信息。<br/>" +
+        "<br/>" +
+        "&nbsp;&nbsp;本授权书中本人“个人信息”是指以电子或者其他方式记录的能够单独或者与其他信息结合识别本人身份或反映本人活动情况的各种信息,包括但不限于本人的身份信息、财产信息、账户信息、信用信息、交易信息、医疗健康信息、行踪轨迹信息、电子设备信息、电子设备操作日志等。<br/>" +
+        "<br/>" +
+        "&nbsp;&nbsp;本授权书中“与本人相关的业务”是指本人在接受上海加池网络科技有限公司咨询或借款居间服务中相关的一切业务。<br/>" +
+        "<br/>" +
+        "&nbsp;&nbsp;本授权书自合同签署时生效,具有独立法律效力,不受本授权书所涉业务合同或协议成立与否及效力状态变化的影响。<br/>" +
+        "<br/>" +
+        "&nbsp;&nbsp;若本人在贵司业务未获批准办理，本授权书中约定的相关资料无须退回本人。<br/>" +
+        "<br/>" +
+        "                授权人： <br/>" +
+        "<br/>" +
+        "                身份证号码:<br/>" +
+        "<br/>" +
+        "                授权日期： 年月日" +
+        "<br/>" +
+        "<br/>" +
+        "<br/>" +
+        "<br/>" +
+        "<br/>";
     console.log(loader)
     bui.ready(function(){
     var pageview = {};
@@ -190,7 +271,7 @@
 
 
         // 密码显示或者隐藏
-        var password = bui.input({
+        /*var password = bui.input({
             id: "#passwordInput",
             iconClass: ".icon-eye",
             onBlur: function (e) {
@@ -209,7 +290,7 @@
                 //
                 $(e.target).toggleClass("active")
             }
-        })
+        })*/
 
         // 评论的长度限制
         var comment = bui.input({
@@ -222,22 +303,23 @@
 
 
     }
-
-
-    var uiDialogDown = bui.dialog({
-        id: "#dialogDown",
-        effect: "fadeInUp",
-        position: "bottom",
-        width: "100%",
-        height: 300,
-        fullscreen: false,
-        dragable: true,
-        dragback: true,
-        buttons: []
-    });
-
-    $('#btnOpenDown').on("click", function () {
-        uiDialogDown.open();
+    var mask = document.getElementById("mask");
+    var dialogDown = bui.toggle({id:"#dialogDown",inOrder:true});
+    $('#attorney').on("click", function () {
+        $('#attorneyText')[0].innerHTML = attorney;
+        mask.style.display = "block"
+        $('#mask')[0].removeAttribute("display")
+        dialogDown.show("fadeInUp");
+    })
+    $('#attorney2').on("click", function () {
+        $('#attorneyText')[0].innerHTML = attorney;
+        mask.style.display = "block"
+        $('#mask')[0].removeAttribute("display")
+        dialogDown.show("fadeInUp");
+    })
+    $('#mask').on("click", function () {
+        mask.style.display = "none"
+        dialogDown.hide("fadeOutDown");
     })
 
         // 多级联动

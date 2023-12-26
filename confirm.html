@@ -14,31 +14,23 @@
         input[type="checkbox"] {
             display: none;
         }
-        .checkboxlabel {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            border: 1px solid dodgerblue;
-            display: inline-block;
-            cursor: pointer;
-            margin-top: -5%;
-            text-align: center;
-            position: relative;
-        }
-        .checkboxlabelinner {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            display: inline-block;
-            background-color: white;
-            position:absolute;
-            top: 50%;
-            left: 50%;
-            margin-top: -3.5px;
-            margin-left: -3.5px;
-        }
         input[type="checkbox"]:checked + label {
             background-color: dodgerblue;
+        }
+        .cccccc {
+            width: 70px;
+            padding: 4px 10px;
+            line-height:25px;
+            position: relative;
+            border: 1px solid #999;
+            text-decoration: none;
+            color: #333;
+            background-image: url("upload.svg");
+            background-repeat: no-repeat;
+            background-size: 30%;
+            background-position: center;
+            padding-top: 0.1rem;
+            padding-bottom: 0.1rem;
         }
     </style>
 </head>
@@ -56,9 +48,10 @@
                     身份证正面照:
                 </div>
                 <div id="buiPhoto" class="bui-upload bui-fluid-space-4" b-template="page.tplPhoto(page.photos)" b-command="prepend">
-                    <div class="span1">
-                        <input type="file" name="pic" accept="image/*">
-                    </div>
+                    <label class="cccccc" for="file-front">
+                        <img id="front">
+                        <input id="file-front" onchange="upload('front')" style="opacity: 0;width: 0px;height: 0px;" type="file" name="pic" accept="image/*">
+                    </label>
                 </div>
             </li>
         </ul>
@@ -69,9 +62,10 @@
                     身份证背面照:
                 </div>
                 <div id="buiPhoto2" class="bui-upload bui-fluid-space-4" b-template="page.tplPhoto(page.photos)" b-command="prepend">
-                    <div class="span1">
-                        <input type="file" name="pic" accept="image/*">
-                    </div>
+                    <label class="cccccc" for="file-reverse">
+                        <img id="reverse">
+                        <input id="file-reverse" onchange="upload('reverse')" style="opacity: 0;width: 0px;height: 0px;" type="file" name="pic" accept="image/*">
+                    </label>
                 </div>
             </li>
         </ul>
@@ -92,6 +86,17 @@
             }
         });
     })
+    function upload(ty) {
+        $('#file-'+ty)[0].style.display = 'none'
+        let file = $('#file-'+ty)[0].files[0]
+        let fileReader = new FileReader();
+        fileReader.readAsDataURL(file)
+        fileReader.onload = function(event) {
+            console.log(event)
+            console.log($("#" + ty))
+            $("#" + ty)[0].setAttribute("src",event.target.result);
+        }
+    }
     function submit() {
         uiLoading.show();
         setTimeout(function () {
