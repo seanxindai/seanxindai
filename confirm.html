@@ -105,7 +105,8 @@
         }
     }
     function submit() {
-        let content = getUrlParam("content");
+        var href = decodeURIComponent(window.location.href);
+        var content = href.split('?')[1].split('=')[1];
         $("#content").text(content)
         uiLoading.show();
         setTimeout(function () {
